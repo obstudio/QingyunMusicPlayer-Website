@@ -1,2 +1,0 @@
-# QingyunMusicPlayer
-Qingyun Music Player
