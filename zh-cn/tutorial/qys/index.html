@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>QYS编写手册</title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/popper.js/1.13.0/popper.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+ 			<div class="row">
+ 				<h1 id="QYS编写手册"><strong>QYS编写手册</strong></h1>
+ 				<hr>
+				<p>
+					QYS是青云播放器支持的一种文件格式，功能强大却又简单易学。 <br>
+					本文将介绍QYS文件的编写方法。<br>
+				</p>
+				<ul>
+					<li><a href="#音符与和弦">音符与和弦</a></li>
+					<li><a href="#operator">高级操作符</a></li>
+					<li><a href="#">音轨与格式</a></li>
+					<li><a href="#">变量与函数</a></li>
+				</ul>
+				<hr>
+			</div>
+			<div>
+				<h2 id="快速上手"><strong>快速上手</strong></h2>
+				<p>如果你想要快速掌握QYS的主要语法，下面的内容可以帮助你在短时间内对这种语言形成一个快速的认识。</p>
+				<ul>
+					<li><a href="#唱名与调名">唱名与调名</a></li>
+					<li><a href="#">音高操作符</a></li>
+					<li><a href="#">和弦记法</a></li>
+					<li><a href="#">时值操作符</a></li>
+					<li><a href="#">连音线</a></li>
+					<li><a href="#">小节号与换行符</a></li>
+					<li><a href="#">添加注释</a></li>
+					<li><a href="#">基本变量声明</a></li>
+					<li><a href="#">乐器的声明</a></li>
+				</ul>
+				<hr>
+			</div>
+			<div>
+				<h2 id="音符与和弦"><strong>音符与和弦</strong></h2>
+				<hr>
+				<p>首先我们介绍音符的记法。在这一点上，QYS基本沿用了简谱的记号，因此相信只要是熟悉简谱的人都能快速学会QYS的音符记法。</p>
+				<h3 id="唱名与调名"><strong>唱名与调名</strong></h3>
+				<ul>
+					<li>与简谱类似，用数字<code>1~7</code>分别代表唱名。</li>
+					<li>与简谱类似，用数字<code>0</code>表示休止符。</li>
+					<li>与简谱类似，用<code>&lt;1=xx&gt;</code>声明调名，比如说<code>&lt;1=B&gt;</code>。</li>
+					<li><code>&lt;1=bD&gt;</code>和<code>&lt;1=Db&gt;</code>的表述都是可以接受的。</li>
+				</ul>
+				<p>范例：南京地铁到站提示音：<code>&lt;1=C&gt;3125</code>。</p>
+				<h3 id="音高操作符"><strong>音高操作符</strong></h3>
+				<ul>
+					<li>音高操作符写在一个音符或和弦的右侧，用于改变其音高。</li>
+					<li>音高操作符共有4个，分别为<code>#</code>，<code>b</code>，<code>,</code>以及<code>'</code>。</li>
+					<li><code>#</code>将一个音升高半度，<code>b</code>将一个音降低半度。</li>
+					<li><code>'</code>将一个音升高八度，<code>,</code>将一个音降低八度。</li>
+					<li>音高操作符允许叠加和交换，但仅对其左侧的音生效。</li>
+					<li><p>符号<code>'</code>、<code>,</code>可以写到调名中，表示所有音统一升高、降低八度。</li></p>
+				</ul>
+				<p>范例：一个A大调下的音阶用C大调表示为<code>&lt;1=C&gt;671#'2'3'4#'5#'6'</code>，它等价于<code>&lt;1=C'&gt;6,7,1#234#5#6</code>。</p>
+				<blockquote>
+					<p>QYM语法中，<code>#</code>和<code>b</code>是前置的，<code>,</code>和<code>'</code>是后置的；而在QYS语法下，这四个操作符都是后置的。 <br>
+					此外，QYM暂时不支持将<code>'</code>、<code>,</code>写到调名中的用法。</p>
+				</blockquote>
+				<h3 id="和弦记法"><strong>和弦记法</strong></h3>
+				<ul>
+					<li>用方括号<code>[]</code>表示一个和弦，方括号里面依次写入每一个音。</li>
+					<li>一个音右侧的音高操作符将只改变这个音的音高。</li>
+					<li><p>方括号右侧的音高操作符将改变每一个音的音高。</p></li>
+				</ul>
+				<p>范例：一个和弦<code>[4#,6,1#]</code>，它等价于<code>[4#61'#],</code>。</p>
+				<blockquote>
+					<p>QYM中的和弦用&amp;操作符来表示，如上面的例子在QYM中应写成<code>&lt;1=bD&gt;4,&amp;6,&amp;1</code>。</p>
+				</blockquote>
+				<h3 id="快速地表示前一个音"><strong>快速地表示前一个音</strong></h3>
+				<p>QYS提供了符号%，用来快速地表示前一个音。具体用法如下：</p>
+				<ul>
+					<li><code>%</code>表示前一个音的音高，无论前一个音是单音还是和弦。</li>
+					<li><code>%</code>只复制音高，不复制时值。</li>
+					<li><code>%</code>不复制打击乐，休止符和倚音。</li>
+					<li><p><code>%</code>后面可以继续使用音高操作符，改变<code>%</code>整体的音高</p></li>
+				</ul>
+				<p>范例：《Numb》的副歌部分第一句：<code>&lt;1=F&gt;[61'#6']%%[52'5'][61'6']%%%[747'][53'5']</code>（未标注时值）。</p>
+				<blockquote>
+					<p>QYM暂不支持这种用法。</p>
+				</blockquote>
+				<h3 id="时值操作符"><strong>时值操作符</strong></h3>
+				<ul>
+					<li>时值操作符用于标记一个音的时值，位于音高操作符的右侧。</li>
+					<li>时值操作符共有3个，分别是<code>-</code>，<code>_</code>，<code>.</code>。</li>
+					<li><code>-</code>将时值增加一拍，<code>_</code>将时值减半。</li>
+					<li>连续n个<code>.</code>的作用是将时值变为原来的(2-2^(-n))倍。</li>
+					<li>时值操作符从左到右依次运算。</li>
+					<li><p>当没有时值操作符时，默认为一拍。</p></li>
+				</ul>
+				<p>范例：<code>0-..</code>占3.5拍，而<code>1.-_</code>占1.25拍（虽然我们并不推荐这种写法）。</p>
+				<h3 id="实例"><strong>实例</strong></h3>
+				<p>下面展示了《彩虹》的副歌部分。</p>
+				<pre><code>
+&lt;1=C&gt;
+0_5_4'_3'_|2'_1'_%_%_7_1'_2'_3'_|5-
+0_5_1'_7_|6_5_5_4_3_2_3_4_|5-
+0_5_5_5_|6.6_5#_6_7_3_|1'-
+0_1'_7_1'_|2'.%_%_1'_3'_4'_|2'-
+0_5_4#_5_|3'.%_4'_3'_2'_7_|1'-
+0_1'_7_1'_|5'.%_4'_3'_2'_3'_|3'-
+2'_5_4#_5_|3'.%_4'_3'_2'_7_|1'_2'_3'_7'_
+6'.3'_|5'_4'_3'_4'_3'2'|1'-
+				</code></pre>
+ 			</div>
+		</div>
+	</body>
+</html>
