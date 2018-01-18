@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
 	<title>Qingyun Music Player</title>
-	<link rel="icon" href="http://www.qymp.tk/assets/images/qymp.ico" />
-	<link rel="apple-touch-icon" href="http://www.qymp.tk/assets/images/qymp.png" />
+	<link rel="icon" href="/assets/images/icon/qymp.ico">
+	<link rel="apple-touch-icon" href="/assets/images/icon/qymp.png">
 	<script>
-		var lang = (navigator.language || navigator.browserLanguage).toLowerCase();
+		var lang=(navigator.language || navigator.browserLanguage).toLowerCase();
 		switch(lang) {
+		case 'zh':
+			location.replace('/zh-cn');
+			break;
 		case 'zh-cn':
-			window.location.replace('http://www.qymp.tk/zh-cn/');
+			location.replace('/zh-cn');
 			break;
 		default:
-			window.location.replace('http://www.qymp.tk/zh-cn/');
+			location.replace('/zh-cn');
 		}
 	</script>
 </head>
