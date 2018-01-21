@@ -89,7 +89,7 @@ QYM 格式是一种文本化的音乐格式，只需要使用任何一款文本�
 
 	2300
 
-打击乐没有音高，使用 `x` 来表示。
+打击乐没有音高，使用 `x` 来表示。打击乐需要在 [乐器](#乐器) 中事先指定才能使用。
 
 注意：
 1. 依照简谱的规范，多拍的休止请使用多个休止符（如 `0000`）表示，而不要用类似 `0---` 这样的符号表示。
@@ -125,7 +125,7 @@ QYM 格式是一种文本化的音乐格式，只需要使用任何一款文本�
 
 ### 小节
 
-`|` 为小节线，表示两小节的分割。
+`|` 为小节线，表示两小节的分隔
 
 例：输入四个小节上行三度及下行二度音程
 
@@ -255,7 +255,7 @@ QYM 格式是一种文本化的音乐格式，只需要使用任何一款文本�
 
 ### 注释
 
-在文件的开头，可以用 `//` 表示注释，方便记录音乐信息。
+在文件的开头，可以用 `//` 表示注释，记录音乐的基本信息。
 
 ### 实例
 
@@ -266,3 +266,87 @@ QYM 格式是一种文本化的音乐格式，只需要使用任何一款文本�
 	<1=F><2/4><90>55_^6_|2-|11_^6,_|2-|55|6_^1'_6_5_|11_^6,_|2-|52|17,_^6,_|5,5|23_2_|11_^6,_|2_3_2_1_|2_^1_7,_^6,_|5,-^|5,0||
 
 如果你发现你还有一些符号不能理解，请 [单击这里](#音符) 再认真阅读一下之前的内容。
+
+
+## 多声部
+
+### 多声部表示
+
+多声部之间以换行符分隔，所有的行都会同时开始播放。
+
+例：一段含有两个声部的音乐
+
+	35_5_^|5_5_4|5,4_4_^|4_4_3||
+	13_3_^|3_3_2|5,2_2_^|2_2_1||
+
+### 初始化行
+
+一首音乐中的调号、拍号和速度，在各个声部中一般是一样的。因此，允许在所有声部之前增加一个仅含有调号、拍号和速度符号的初始化行，初始化行中的符号对以下的所有声部都有效。
+
+例：在所有声部之前增加初始化行
+
+	<1=G><2/4><132>
+	35_5_^|5_5_4|5,4_4_^|4_4_3||
+	13_3_^|3_3_2|5,2_2_^|2_2_1||
+
+程序会自动判断初始化行是否存在，若初始化行不存在，程序将采用默认值 C 大调、4/4 拍、速度为 90（在没有初始化行的情况下，调号、拍号和速度可以在声部中修改，如 [实例1](#实例) 中的情况）。
+
+### 乐器
+
+对于每一个声部，可以使用 `{instrument}` 指定该声部的乐器。若没有指定，默认为 Piano（钢琴）。*instrument* 的所有可能的取值如下：
+
+一般乐器：Accordion, Agogo, AltoSax, Applause, Atmosphere, Bagpipe, Bandoneon, Banjo, BaritoneSax, Bass, BassAndLead, Bassoon, Bird, BlownBottle, Bowed, BrassSection, Breath, Brightness, BrightPiano, Calliope, Celesta, Cello, Charang,Chiff, Choir, Clarinet, Clavi, Contrabass, Crystal, DrawbarOrgan, Dulcimer, Echoes, ElectricBass, ElectricGrandPiano, ElectricGuitar, ElectricPiano, ElectricPiano2, EnglishHorn, Fiddle, Fifths, Flute, FrenchHorn, FretlessBass, FretNoise, Glockenspiel, Goblins, Guitar, GuitarDistorted, GuitarHarmonics, GuitarMuted, GuitarOverdriven, Gunshot, Halo, Harmonica, Harp, Harpsichord, Helicopter, HonkyTonkPiano, JazzGuitar, Kalimba, Koto, Marimba, MelodicTom, Metallic, MusicBox, MutedTrumpet, NewAge, Oboe, Ocarina, OrchestraHit, Organ, PanFlute, PercussiveOrgan, Piano, Piccolo, PickedBass, PizzicatoStrings, Polysynth, Rain, Recorder, ReedOrgan, ReverseCymbal, RockOrgan, Sawtooth, SciFi, Seashore, Shakuhachi, Shamisen, Shanai, Sitar, SlapBass, SlapBass2, SopranoSax, Soundtrack, Square, Steeldrums, SteelGuitar, Strings, Strings2, Sweep, SynthBass, SynthBass2, SynthBrass, SynthBrass2, SynthDrum, SynthStrings ,SynthStrings2, SynthVoice, Taiko, Telephone, TenorSax, Timpani, Tinklebell, TremoloStrings, Trombone, Trumpet, Tuba, TubularBells, Vibraphone, Viola, Violin, Voice, VoiceAahs, VoiceOohs, Warm, Whistle, Woodblock, Xylophone
+
+打击乐器：BassDrum, BassDrum2, BellTree, Cabasa, Castanets, ChineseCymbal, Clap, Claves, Cowbell, CrashCymbal, CrashCymbal2, ElectricSnare, GuiroLong, GuiroShort, HighAgogo, HighBongo, HighCongaMute, HighCongaOpen, HighFloorTom, HighTimbale, HighTom, HighWoodblock, HiHatClosed, HiHatOpen, HiHatPedal, JingleBell, LowAgogo, LowBongo, LowConga, LowFloorTom, LowTimbale, LowTom, LowWoodblock, Maracas, MetronomeBell, MetronomeClick, MidTom, MidTom2, MuteCuica, MuteSurdo, MuteTriangle, OpenCuica, OpenSurdo, OpenTriangle, RideBell, RideCymbal, RideCymbal2, ScratchPull, ScratchPush, Shaker, SideStick, Slap, Snare, SplashCymbal, SquareClick, Sticks, Tambourine, Vibraslap, WhistleLong, WhistleShort
+
+例：指定乐器为 ElectricGuitar（电吉他）
+
+	{ElectricGuitar}5,|3--5_^6_|33_^2_1.3_|2_.^3__2_1_6,^6,__^1__^2__^1__|2--||
+
+### 音量
+
+每个声部的音量默认均为 100%。音量符号 `<volume%>` 可以将该声部的音量更改为 *volume*%。
+
+例：将音量改为 50%
+
+	{ElectricPiano}<50%>3|1.^2_35|6.1'_76|5--||
+
+对于多种乐器演奏同样的音乐的情况，可以用逗号隔开，一起记录。如 `{ElectricPiano,ElectricGuitar}<50%,25%>` 表示这个声部由电子琴和电吉他一起演奏，音量分别为 50% 和 25%。
+
+注意：
+1. 若一个声部指定了多个乐器，但音量只有一个，那么这个声部所有的乐器的音量都会设置为指定的音量。除此之外，不允许其它乐器个数与音量个数不一致的情况。
+
+### 段落
+
+大多数音乐较长，不便显示。段落功能解决了这个问题。
+
+一个段落由任意行（也可以没有）注释、0 或 1 个初始化行、若干个声部行组成。两个段落之间由一个空行分隔。在所有段落之前，可以有任意行的音乐注释，之后用一个空行与第一个段落分开。一般的段落格式如下：
+
+	//音乐注释 1
+	//音乐注释 2
+	//……
+	//音乐注释 n
+	　
+	//段落 1 注释 1
+	//段落 1 注释 2
+	//……
+	//段落 1 注释 m
+	<段落 1 初始化>
+	段落 1 声部 1 ||
+	段落 1 声部 2 ||
+	……
+	段落 1 声部 p ||
+	　
+	//段落 2 注释 1
+	……
+	　
+	……
+
+由于方便编辑和显示，即使是单声部的音乐，也建议用段落的形式记录。如 [实例1](#实例) 一般会写成这样：
+
+	//东方红
+	//陕北民歌
+	<1=F><2/4><90>
+	55_^6_|2-|11_^6,_|2-|55|6_^1'_6_5_|11_^6,_|2-|
+	52|17,_^6,_|5,5|23_2_|11_^6,_|2_3_2_1_|2_^1_7,_^6,_|5,-^|5,0||
+
