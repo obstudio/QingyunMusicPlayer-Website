@@ -1,4 +1,4 @@
-//tokenizer 7th ver. 2018.01.19
+//tokenizer 8th ver. 2018.01.22
 {
 	"Comments": [ //歌曲注释，允许多行
 		"Vuelie",
@@ -23,88 +23,100 @@
 				},
 			],
 			"Tracks":[//音轨
-				[//第一个音轨
-					{
-						"Type": "FunctionToken", //函数表达
-						"Simplified": false,
-						"Argument": {"FadeOut": 2} //函数名: 实参
-					},
-					{
-						"Type": "FunctionToken", //函数表达
-						"Simplified": true, //简化的函数表达
-						"Argument": {"Bar": 3, "Beat": 4} //函数名: 实参
-					},
-					{
-						"Type": "Note",//音符
-						"Pitches": [//允许有多个频率的音符作为和弦
-							{
-								"ScaleDegree": 6,
-								//1, 2, 3, 4, 5, 6, 7: 唱名
-								//10: 打击乐x
-								//0: 一个休止符
-								//-1: 一个%操作符
-								"SemitonesCount": 0, //升降半音记号数量（正为升，负为降，如b即为-1）
-								"OctavesCount": -1, //升降八度记号数量（正为升，负为降）
-								"ChordSymbol": "" //简化和弦符号
-							}
-						],
-						//允许将音高操作符写在[]外面以表示对所有音生效
-						"SemitonesCount": 0, //升降半音记号数量（正为升，负为降，如b即为-1）
-						"OctavesCount": -1, //升降八度记号数量（正为升，负为降）
-						"Accent": true,
-						"Staccato": false, //顿音
-						"Arpeggio": false, //琶音
-						"DurationOperators": "_-." //按顺序记录每一个时值操作符
-					},
-					{
-						"Type": "Appoggiatura",//前倚音
-						"Pitches": [//允许有多个前倚音
-							{
-								"ScaleDegree": 1, //音高
-								"SemitonesCount": 0, //升降半音记号数量
-								"OctavesCount": 0 //升降八度记号数量
-							}
-						]
-					},
-					{
-						"Type": "Fermata", //延长音
-						"Ratio": 2 //延长比例（默认为2）
-					},
-					{
-						"Type": "Tuplet", //n连音
-						"NotesCount": 3 //连音数量
-					},
-					{
-						"Type": "Tremolo1", //单震音
-						"StrokesCount": 3 //横杠数量，即为文档中的n
-					},
-					{
-						"Type": "Tremolo2", //双震音
-						"StrokesCount": 3 //横杠数量，即为文档中的n
-					},
-					{
-						"Type": "Tie" //连音线
-					},
-					{
-						"Type": "Portamento" //滑音
-					},
-					{
-						"Type": "BarLine", //小节线
-						"Newline": true, //是否换行
-						"Skip": false, //负反复时的跳过标签
-						"Order": [0] //正反复的第几次反复标签
-					},
-					{
-						"Type": "Track", //子音轨
-						"Contents": [
-							//内容与一个音轨相同
-						],
-						"Repeat": 2 //反复次数，+ 和 - 代表两种不同的反复
-					}
-				],
-				[
+				{
+					"Type": "Track",
+					"Contents": [
+						{
+							"Type": "FunctionToken", //函数表达
+							"Simplified": false,
+							"Argument": {"FadeOut": 2} //函数名: 实参
+						},
+						{
+							"Type": "FunctionToken", //函数表达
+							"Simplified": true, //简化的函数表达
+							"Argument": {"Bar": 3, "Beat": 4} //函数名: 实参
+						},
+						{
+							"Type": "Note",//音符
+							"Pitches": [//允许有多个频率的音符作为和弦
+								{
+									"ScaleDegree": 6,
+									//1, 2, 3, 4, 5, 6, 7: 唱名
+									//10: 打击乐x
+									//0: 一个休止符
+									//-1: 一个%操作符
+									"SemitonesCount": 0, //升降半音记号数量（正为升，负为降，如b即为-1）
+									"OctavesCount": -1, //升降八度记号数量（正为升，负为降）
+									"ChordSymbol": "" //简化和弦符号
+								}
+							],
+							//允许将音高操作符写在[]外面以表示对所有音生效
+							"SemitonesCount": 0, //升降半音记号数量（正为升，负为降，如b即为-1）
+							"OctavesCount": -1, //升降八度记号数量（正为升，负为降）
+							"Accent": true,
+							"Staccato": false, //顿音
+							"Arpeggio": false, //琶音
+							"DurationOperators": "_-." //按顺序记录每一个时值操作符
+						},
+						{
+							"Type": "Appoggiatura",//前倚音
+							"Pitches": [//允许有多个前倚音
+								{
+									"ScaleDegree": 1, //音高
+									"SemitonesCount": 0, //升降半音记号数量
+									"OctavesCount": 0 //升降八度记号数量
+								}
+							]
+						},
+						{
+							"Type": "Fermata", //延长音
+							"Ratio": 2 //延长比例（默认为2）
+						},
+						{
+							"Type": "Tuplet", //n连音
+							"NotesCount": 3 //连音数量
+						},
+						{
+							"Type": "Tremolo1", //单震音
+							"StrokesCount": 3 //横杠数量，即为文档中的n
+						},
+						{
+							"Type": "Tremolo2", //双震音
+							"StrokesCount": 3 //横杠数量，即为文档中的n
+						},
+						{
+							"Type": "Tie" //连音线
+						},
+						{
+							"Type": "Portamento" //滑音
+						},
+						{
+							"Type": "BarLine", //小节线
+							"Newline": true, //是否换行
+							"Skip": false, //负反复时的跳过标签
+							"Order": [0] //正反复的第几次反复标签
+						},
+						{
+							"Type": "Track", //子音轨
+							"Contents": [
+								//内容与一个音轨相同
+							],
+							"Repeat": 2 //反复次数，+ 和 - 代表两种不同的反复
+						},
+						{
+							"Type": "Whitespace",
+							"Content": "    " //记录原文件中出现的空格和 Tab
+						},
+						{
+							"Type": "Undefined",
+							"Content": "@233" //记录原文件中无法解析的内容，生成报错
+						}
+					],
+					"Repeat": 0
+				},
+				{
 					//下一个音轨
-				]
+				}
 			]
 		},
 		{
